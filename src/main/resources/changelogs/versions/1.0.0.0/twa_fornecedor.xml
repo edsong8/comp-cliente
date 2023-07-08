@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+	<property name="logicalFile_1"
+		value="versions/1.0.0.0/fornecedor.xml" />
+
+	<changeSet logicalFilePath="${logicalFile_1}"
+		id="tag-fornecedor" author="edson" runInTransaction="true"
+		context="local, test, homolog, production" runOnChange="false">
+		<tagDatabase tag="tag-fornecedor" />
+	</changeSet>
+
+	<changeSet logicalFilePath="${logicalFile_1}"
+		id="tag-fornecedor-update" author="edson" runInTransaction="true"
+		context="local, test, homolog, production" runOnChange="false">
+		<comment>update comments create tag-fornecedor</comment>
+		<sql> Update databasechangelog set comments='ponto de rolback
+			tag-fornecedor'
+			where id='tag-fornecedor';
+		</sql>
+		<rollback />
+	</changeSet>
+
+
+
+	<changeSet logicalFilePath="${logicalFile_1}" author="edson"
+		id="twa_ms_2023_0006" runInTransaction="true"
+		context="local, test, homolog, production" runOnChange="false">
+
+		<createSequence sequenceName="fornecedor_id_seq"
+			cycle="false" minValue="1" maxValue="9223372036854775807"
+			startValue="1" incrementBy="1" />
+
+		<createTable tableName="fornecedor">
+			<column name="id" type="BIGINT"> <constraints nullable="false" primaryKey="true"	primaryKeyName="fornecedor_pk" /> </column>
+			<column name="empresa_id" type="bigint">  <constraints nullable="false" /> </column>
+			<column name="grupo_empresa_id" type="bigint"> <constraints nullable="false" /> </column>
+			<column name="tipo_pessoa" type="varchar(20)">  <constraints nullable="false" /> </column>
+			<column name="destinatario" type="bool"/>
+			<column name="inativo" type="bool"/>
+			<column name="nao_contribuinte" type="bool"/>
+			<column name="tipo_inscricao" type="varchar(4)"/>
+			<column name="cpf_cnpj" type="varchar(30)"/>
+			<column name="inscricao" type="varchar(30)"/>
+			<column name="tipo_atividade" type="varchar(50)"/>
+			<column name="nome" type="varchar(200)"/>
+			<column name="apelido" type="varchar(200)"/>
+			<column name="cep" type="varchar(18)"/>
+			<column name="ender" type="varchar(100)"/>
+			<column name="nr" type="varchar(30)"/>
+			<column name="compl" type="varchar(60)"/>
+			<column name="bairro" type="varchar(50)"/>
+			<column name="cidade" type="varchar(50)"/>
+			<column name="estado" type="varchar(2)"/>
+			<column name="c_pais" type="bigint"/>
+			<column name="x_pais" type="varchar(60)"/>
+			<column name="cod_postal" type="varchar(20)"/>
+			<column name="telefone" type="varchar(18)"/>
+			<column name="email" type="varchar(50)"/>
+			<column name="forma_pgto" type="varchar(50)"/>
+			<column name="promob" type="bool"/>
+			<column name="markup" type="numeric(172)"/>
+			<column name="frete" type="numeric(172)"/>
+			<column name="montagem" type="numeric(172)"/>
+			<column name="layout_projeto" type="varchar(20)"/>
+			<column name="conta_pg_ant" type="bigint"/>
+			<column name="conta_pg_fat" type="bigint"/>
+			<column name="conta_pg_ped" type="bigint"/>
+			<column name="access_token_gabster" type="varchar(255)"/>
+			<column name="data_inclusao" type="DATETIME" defaultValueComputed="now()"/>
+		</createTable>
+		<rollback>
+			<dropTable tableName="fornecedor" cascadeConstraints="true" />
+			<dropSequence sequenceName="fornecedor_id_seq" />
+		</rollback>
+	</changeSet>
+
+	<changeSet logicalFilePath="${logicalFile_1}" author="edson"
+		id="1634-27062026" dbms="postgresql" runInTransaction="true"
+		context="local, test, homolog, production" runOnChange="true">
+		<sql>
+			alter sequence public.fornecedor_id_seq restart with 203;
+		</sql>
+		<rollback>
+		</rollback>
+	</changeSet>
+
+</databaseChangeLog>

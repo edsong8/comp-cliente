@@ -1,0 +1,91 @@
+
+# comp-fornecedor
+debug: false
+
+DB_HOST: localhost
+DB_PORT: 5432
+DB_NAME: twa_fornecedor
+DB_USERNAME: fornecedor_user
+DB_PASSWORD: TFteemPC158l
+
+server:
+  port: 8100
+  servlet:
+    context-path: /api
+
+eureka:
+  client:
+    service-url:
+      registerWithEureka: true
+      fetchRegistry: true
+      eureka-server-port: 8761 
+      initialInstanceInfoReplicationIntervalSeconds: 5    
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/naming-server/eureka}
+  instance:
+    registryFetchIntervalSeconds: 1
+    leaseRenewalIntervalInSeconds: 2
+    leaseExpirationDurationInSeconds: 1
+    
+logging:
+  level:
+    root: WARN
+    com: 
+      main: INFO
+      security: INFO
+      backend:
+        security:
+          filter: INFO
+      webservices: INFO
+      netflix: WARN
+    org:
+      springframework: WARN
+          
+security:
+  oauth2:
+    resource:
+      id: bcrypt
+
+log4j2:
+  elector: org.apache.logging.log4j.core.async.AsyncLoggerContextSelector
+
+spring:
+  application:
+    name: comp-fornecedor
+    version: 0.0.1-SNAPSHOT
+  jackson:
+    date-format: yyyy-MM-dd
+    default-property-inclusion: NON_EMPTY
+    serialization:
+      fail-on-empty-beans: false
+  liquibase:
+    contexts: local, homolog, production
+    change-log: WEB-INF/classes/changelogs/db.changelog-master.xml
+    url: "jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}?useTimezone=true&serverTimezone=UTC"
+    user: "${DB_USERNAME}"
+    password: "${DB_PASSWORD}"
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: "jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}?useTimezone=true&serverTimezone=UTC"
+    username: "${DB_USERNAME}"
+    password: "${DB_PASSWORD}"
+  jwt:
+    secret: ccceee7373636f70657374686174666f6c6c6f77746865323338374c4c6772616e74656435617574686f726974793332333233326e616d696e67303030304f4f636f6e767373636f70657374686174666f6c6c6f77746865323338374c4c6772616e74656435617574686f72697479333233323332cccffff33323332cccfff
+    expiration: '720'
+    refresh:
+      expiration: '30'
+  sleuth:
+    sampler:
+      probability: 1.0
+  zipkin:
+    base-url: http://localhost:9411/
+  mvc:
+      pathmatch:
+            matching-strategy: ANT_PATH_MATCHER 
+springdoc:
+  swagger-ui:
+    configUrl: 'v3/api-docs'
+    disable-swagger-default-url: true
+  show-actuator: true
+  api-docs:
+    path: v3/api-docs

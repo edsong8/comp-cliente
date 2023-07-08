@@ -1,0 +1,18 @@
+hibernate:
+  format_sql: true
+  show_sql: true
+  hbm2ddl.auto: validate
+  bytecode.use_reflection_optimizer: true
+  generate_statistics: false
+  bytecode.provider: cglib
+  cache.use_second_level_cache: false
+  cache.use_query_cache: false
+  cache.region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
+  dialect: org.hibernate.dialect.PostgreSQL94Dialect
+  cache.provider_class: org.hibernate.cache.NoCacheProvider
+  c3p0.min_size: 2
+  c3p0.initialPoolSize: 3
+  c3p0.max_size: 6
+  c3p0.timeout: 150
+  c3p0.max_statements: 1000
+  c3p0.idle_test_period: 3000

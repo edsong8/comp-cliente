@@ -1,0 +1,73 @@
+
+# Arquivo para ser usado no github actions, para compilar e gerar as imagens
+# publicar as imanges no hub.docker.com
+
+name: Continuous Integration with Github
+
+on: 
+  push:
+    branches:
+    - master
+
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Use Private Docker Action
+        uses: actions/checkout@v2
+        with:
+          docker_username: ${{secrets.DOCKER_USER_NAME}}
+          docker_password: ${{secrets.DOCKER_USER_PASSWORD}}
+           
+      - name: Setup Java JDK
+        run: |
+          sudo apt update && sudo  apt upgrade
+          sudo apt-cache search openjdk-11
+          sudo apt install openjdk-11-jdk
+          sudo update-alternatives --config java
+          sudo java --version
+          sudo mvn -v
+          sudo cp .github/workflows/settings.xml /usr/share/apache-maven-3.8.8/conf/
+          
+      - name: Setup PostgreSQL
+        uses: Harmon758/postgresql-action@v1.0.0
+        with:
+          postgresql version: 12.1
+          postgresql db: twa_empresa
+          postgresql user: empresa_user
+          postgresql password: 'TEteemPC800z' 
+      
+      - name: Build Empresa Jar
+        working-directory: ./
+        run: mvn clean package -Phomolog
+     
+      - name: Docker Compose Build
+        working-directory: ./
+        run: | 
+          sudo pwd
+          sudo java --version
+          sudo uname -a
+          docker build -t comp_empresa .     
+      
+      - name: Docker image list
+        run: docker images
+
+      - name: Tag to Docker Registry
+        run: |
+          
+          docker image tag  comp_empresa:latest ${{secrets.DOCKER_USER_NAME}}/comp_empresa:${{github.run_id}}
+          docker image tag  comp_empresa:latest ${{secrets.DOCKER_USER_NAME}}/comp_empresa:latest
+                    
+      - name: Push to Docker Hub Container Registry
+        run: | 
+          docker image ls
+          
+          echo "Logando..."
+          docker login -u ${{ secrets.DOCKER_USER_NAME }} -p ${{ secrets.DOCKER_USER_KEY }}
+          
+          echo "........................................"
+                    
+          docker push ${{ secrets.DOCKER_USER_NAME }}/comp_empresa:${{github.run_id}}
+          docker push ${{ secrets.DOCKER_USER_NAME }}/comp_empresa:latest
