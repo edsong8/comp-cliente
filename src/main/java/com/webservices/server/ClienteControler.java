@@ -41,7 +41,7 @@ public class ClienteControler extends TecControllerRest implements ClienteResour
 
     private final ObjectMapper mapper;
 
-    public ClienteControler(@Qualifier("flienteServiceImpl") ClienteService service, ObjectMapper mapper) {
+    public ClienteControler(@Qualifier("clienteServiceImpl") ClienteService service, ObjectMapper mapper) {
         this.service = service;
         this.mapper = mapper;
     }
@@ -57,9 +57,9 @@ public class ClienteControler extends TecControllerRest implements ClienteResour
         fields.put("id", new SysCriterion("id", SortOrder.DESCENDING));
         fields.put("empresaId", new SysCriterion("empresaId", Restrictions.eq("empresaId", idEmpresa)));
 
-        var flientees = this.service.findAll(Cliente.class, fields, page, size);
+        var clientes = this.service.findAll(Cliente.class, fields, page, size);
         var rows = this.service.count(Cliente.class, fields);
-        var payload = converterClientees(flientees, rows);
+        var payload = converterClientees(clientes, rows);
 
         return new ResponseEntity<>(payload, HttpStatus.OK);
     }
@@ -88,11 +88,11 @@ public class ClienteControler extends TecControllerRest implements ClienteResour
         return new ResponseEntity<>(converterCliente(cliente), HttpStatus.OK);
     }
 
-    private SysPayload<ClienteResponseDTO> converterClientees(List<Cliente> flientees, Integer rows) {
+    private SysPayload<ClienteResponseDTO> converterClientees(List<Cliente> clientes, Integer rows) {
         var payload = newPayload();
         payload.setSize(rows);
 
-        var collection = flientees.stream().map(cliente -> getObjectMapper().convertValue(cliente, ClienteResponseDTO.class)).collect(Collectors.toList());
+        var collection = clientes.stream().map(cliente -> getObjectMapper().convertValue(cliente, ClienteResponseDTO.class)).collect(Collectors.toList());
         payload.setCollection(collection);
 
         return payload;

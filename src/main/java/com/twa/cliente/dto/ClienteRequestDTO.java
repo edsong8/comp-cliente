@@ -1,12 +1,15 @@
 package com.twa.cliente.dto;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.security.Timestamp;
 import java.util.Date;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,74 +24,65 @@ public class ClienteRequestDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @Generated(GenerationTime.INSERT)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cliente")
+    @SequenceGenerator(name = "cliente", sequenceName = "cliente_id_seq", allocationSize = 1)
+    private Long id;
+    
     private Long empresaId;
-    
-    private Long grupoEmpresaId;
-    
+
+    private Long contatoId;
+
     private String tipoPessoa;
-    
-    private boolean destinatario;
-    
-    private boolean inativo;
-    
+
     private boolean naoContribuinte;
-    
-    @Enumerated(EnumType.STRING)
-    private String tiposInscr;
-    
+
     private String cpfCnpj;
-    
-    private String inscricao;
-    
+
     private String nome;
-    
-    private String apelido;
-    
+
+    private String rgIe;
+
+    private Date dataNascimento;
+
     private String cep;
     
-    private String ender;
-    
+    private String rua;
+
     private String nr;
-    
-    private String compl;
-    
+
+    private String complemento;
+
     private String bairro;
-    
+
     private String cidade;
-    
-    @Enumerated(EnumType.STRING)
+
     private String estado;
-    
+
     private Long cPais;
     
     private String pais;
-    
+
     private String codPostal;
     
-    private String telefone;
+    private String cepEntrega;
     
-    private String email;
-    
-    private String formaPgto;
-    
-    private Boolean promob;
-    
-    private BigDecimal markup;
-    
-    private BigDecimal frete;
-    
-    private BigDecimal montagem;
-    
-    private String layoutProjeto;
-    
-    private Long classificadorVista;
-    
-    private Long classificadorFaturado;
-    
-    private Long classificadorPedidoCompra;
-    
-    private String accessTokenGabster;
-    
-    private Date dataInclusao;
+    private String ruaEntrega;
 
+    private String nrEntrega;
+
+    private String complementoEntrega;
+
+    private String bairroEntrega;
+
+    private String cidadeEntrega;
+
+    private String estadoEntrega;
+
+    private boolean enderecoEntregaIgual;
+    
+    private Date dataCadastro;
+
+    private Boolean vendaSimplificada;
 }

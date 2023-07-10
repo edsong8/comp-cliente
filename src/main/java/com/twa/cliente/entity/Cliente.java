@@ -1,6 +1,5 @@
 package com.twa.cliente.entity;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -40,61 +39,53 @@ public class Cliente extends TecObjectGenericTwa<Cliente> {
     @Column(name = "empresa_id", nullable = false)
     @JsonProperty(value = "empresaId")
     private Long empresaId;
+
     
-    @Column(name = "grupo_empresa_id", nullable = false)
-    @JsonProperty(value = "grupoEmpresaId")
-    private Long grupoEmpresaId;
-    
+    @Column(name = "contato_id")
+    private Long contatoId;
+
     @Column(name = "tipo_pessoa",length = 50, nullable = false)
     private String tipoPessoa;
-    
-    @Column(nullable = false)
-    private boolean destinatario;
-    
-    @Column(nullable = false)
-    private boolean inativo;
-    
+
     @Column(name = "nao_contribuinte", nullable = false)
     private boolean naoContribuinte;
-    
-    @Column(name = "tipo_inscricao", nullable = false)
-    private String tiposInscr;
-    
+
     @Column(name = "cpf_cnpj", length = 14,  nullable = false)
     @JsonProperty(value = "cpfCnpj")    
     private String cpfCnpj;
-    
-    @Column(length = 50)
-    private String inscricao;
 
+    
     @Column(length = 200, nullable = false)
     private String nome;
-    
-    @Column(length = 200)
-    private String apelido;
-    
+
+    @Column(name="rg_ie",length = 30)
+    private String rgIe;
+
+    @Column(name = "data_nascimento")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataNascimento;
+
     @Column(length = 10)
     private String cep;
-
-    @Column(length = 100)
-    private String ender;
     
+    @Column(length = 200)
+    private String rua;
+
     @Column(length = 10)
     private String nr;
-    
-    @Column(length = 50)
-    private String compl;
-    
+
+    @Column(length = 100)
+    private String complemento;
+
     @Column(length = 75)
     private String bairro;
-    
+
     @Column(length = 100)
     private String cidade;
-    
-    @Column(name = "estado", length = 30)
-    //@Enumerated(EnumType.STRING)
+
+    @Column(length = 2)
     private String estado;
-    
+
     @Column(name="c_pais", length = 4)
     private Long cPais;
     
@@ -104,47 +95,36 @@ public class Cliente extends TecObjectGenericTwa<Cliente> {
     @Column(name = "cod_postal", length = 30 )
     private String codPostal;
     
-    @Column(length = 20 )
-    private String telefone;
+    @Column(name="cep_entrega",length = 10)
+    private String cepEntrega;
     
-    @Column(length = 60 )
-    private String email;
-    
-    @Column(name="forma_pgto",length = 10)
-    private String formaPgto;
+    @Column(name="rua_entrega",length = 200)
+    private String ruaEntrega;
 
-    
-    @Column(nullable = false)
-    private Boolean promob;
-    
-    @Column(precision = 15, scale = 2)    
-    private BigDecimal markup;
-    
-    @Column(precision = 15, scale = 2)    
-    private BigDecimal frete;
+    @Column(name="nr_entrega",length = 10)
+    private String nrEntrega;
 
-    @Column(precision = 15, scale = 2)    
-    private BigDecimal montagem;
+    @Column(name="complemento_entrega",length = 100)
+    private String complementoEntrega;
+
+    @Column(name="bairro_entrega",length = 75)
+    private String bairroEntrega;
+
+    @Column(name="cidade_entrega",length = 100)
+    private String cidadeEntrega;
+
+    @Column(name="estado_entrega",length = 2)
+    private String estadoEntrega;
+
+    @Column(name="endereco_entrega_igual",  nullable = false)
+    private boolean enderecoEntregaIgual;
     
-    @Column(name = "layout_projeto", length = 20 )
-    private String layoutProjeto;
-    
-    @Column(name = "conta_pg_ant", length = 4 )
-    private Long classificadorVista;
-    
-    @Column(name = "conta_pg_fat", length = 4 )
-    private Long classificadorFaturado;
-    
-    @Column(name = "conta_pg_ped", length = 4 )
-    private Long classificadorPedidoCompra;
-    
-    @Column(name = "access_token_gabster", length = 200 )
-    private String accessTokenGabster;
-    
-    @Column(name = "data_inclusao")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dataInclusao;
-    
+    @Column(name="data_cadastro",  nullable = false)
+    private Date dataCadastro;
+
+    @Column(name="venda_simplificada",  nullable = false)
+    private Boolean vendaSimplificada;
+
     public Cliente() {
 	super(Cliente.class);
 

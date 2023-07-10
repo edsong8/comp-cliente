@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+	<property name="logicalFile_1"
+		value="versions/1.0.0.0/cliente.xml" />
+
+	<changeSet logicalFilePath="${logicalFile_1}"
+		id="tag-cliente" author="edson" runInTransaction="true"
+		context="local, test, homolog, production" runOnChange="false">
+		<tagDatabase tag="tag-cliente" />
+	</changeSet>
+
+	<changeSet logicalFilePath="${logicalFile_1}"
+		id="tag-cliente-update" author="edson" runInTransaction="true"
+		context="local, test, homolog, production" runOnChange="false">
+		<comment>update comments create tag-cliente</comment>
+		<sql> Update databasechangelog set comments='ponto de rolback
+			tag-cliente'
+			where id='tag-cliente';
+		</sql>
+		<rollback />
+	</changeSet>
+
+
+
+	<changeSet logicalFilePath="${logicalFile_1}" author="edson"
+		id="twa_ms_2023_0008" runInTransaction="true"
+		context="local, test, homolog, production" runOnChange="false">
+
+		<createSequence sequenceName="cliente_id_seq"
+			cycle="false" minValue="1" maxValue="9223372036854775807"
+			startValue="1" incrementBy="1" />
+
+		<createTable tableName="cliente">
+			<column name="id" type="BIGINT"> <constraints nullable="false" primaryKey="true"	primaryKeyName="cliente_pk" /> </column>
+			<column name="empresa_id" type="bigint"> <constraints nullable="false" /> </column>
+			<column name="contato_id" type="bigint"/>	
+			<column name="tipo_pessoa" type="varchar(20)"><constraints nullable="false" /> </column>
+			<column name="nao_contribuinte" type="boolean">  <constraints nullable="false" /> </column>	
+			<column name="cpf_cnpj" type="varchar(14)">  <constraints nullable="false" /> </column>	
+			<column name="nome" type="varchar(100)"><constraints nullable="false" /> </column>	
+			<column name="rg_ie" type="varchar(20)"/>	
+			<column name="data_nascimento" type="DATETIME"/>	
+			<column name="cep" type="varchar(10)"/>	
+			<column name="rua" type="varchar(200)"/>	
+			<column name="nr" type="varchar(10)"/>	
+			<column name="complemento" type="varchar(60)"/>	
+			<column name="bairro" type="varchar(100)"/>	
+			<column name="cidade" type="varchar(100)"/>	
+			<column name="estado" type="varchar(2)"/>	
+			<column name="c_pais" type="bigint"/>	
+			<column name="x_pais" type="varchar(60)"/>	
+			<column name="cod_postal" type="varchar(20)"/>	
+			<column name="cep_entrega" type="varchar(10)"/>
+			<column name="rua_entrega" type="varchar(200)"/>	
+			<column name="nr_entrega" type="varchar(10)"/>	
+			<column name="complemento_entrega" type="varchar(60)"/>	
+			<column name="bairro_entrega" type="varchar(100)"/>	
+			<column name="cidade_entrega" type="varchar(100)"/>	
+			<column name="estado_entrega" type="varchar(2)"/>	
+			<column name="endereco_entrega_igual" type="boolean"><constraints nullable="false" /> </column>	
+			<column name="data_cadastro" type="DATETIME"  defaultValueComputed="now()"/>	
+			<column name="venda_simplificada" type="boolean"> <constraints nullable="false" /> </column>
+		</createTable>
+		<rollback>
+			<dropTable tableName="cliente" cascadeConstraints="true" />
+			<dropSequence sequenceName="cliente_id_seq" />
+		</rollback>
+	</changeSet>
+
+	<changeSet logicalFilePath="${logicalFile_1}" author="edson"
+		id="1634-27062026" dbms="postgresql" runInTransaction="true"
+		context="local, test, homolog, production" runOnChange="true">
+		<sql>
+			alter sequence public.cliente_id_seq restart with 203;
+		</sql>
+		<rollback>
+		</rollback>
+	</changeSet>
+
+</databaseChangeLog>

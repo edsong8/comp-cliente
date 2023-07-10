@@ -7,8 +7,10 @@
 						http://www.liquibase.org/xml/ns/dbchangelog-ext 
 						http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-	<include file="./versions/1.0.0.0/twa_fornecedor.xml" relativeToChangelogFile="true" />
-	<include file="./versions/1.0.0.0/twa_fornecedor-insert.xml" relativeToChangelogFile="true" />
+	<include file="./versions/1.0.0.0/twa_cliente.xml" relativeToChangelogFile="true" />
+	<include file="./versions/1.0.0.0/twa_cliente-insert.xml" relativeToChangelogFile="true" />
+	<include file="./versions/1.0.0.0/twa_cliente-insert-1.xml" relativeToChangelogFile="true" />
+	<include file="./versions/1.0.0.0/twa_cliente-insert-2.xml" relativeToChangelogFile="true" />
 	
 	
 </databaseChangeLog>

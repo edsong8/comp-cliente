@@ -1,15 +1,15 @@
 
-# comp-fornecedor
+# comp-cliente
 debug: false
 
 DB_HOST: localhost
 DB_PORT: 5432
-DB_NAME: twa_fornecedor
-DB_USERNAME: fornecedor_user
-DB_PASSWORD: TFteemPC158l
+DB_NAME: twa_cliente
+DB_USERNAME: cliente_user
+DB_PASSWORD: TFteiyPC666l
 
 server:
-  port: 8100
+  port: 8150
   servlet:
     context-path: /api
 
@@ -51,7 +51,7 @@ log4j2:
 
 spring:
   application:
-    name: comp-fornecedor
+    name: comp-cliente
     version: 0.0.1-SNAPSHOT
   jackson:
     date-format: yyyy-MM-dd
