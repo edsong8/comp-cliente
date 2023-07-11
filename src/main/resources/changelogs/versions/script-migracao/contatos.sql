@@ -1,0 +1,1 @@
+select id, empresa_id, replace(nome, '&','') as nome, telefone_celular, telefone_residencial, telefone_comercial, email,cliente_id  from contato order by id

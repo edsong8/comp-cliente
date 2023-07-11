@@ -23,33 +23,33 @@ import com.twa.cliente.service.ClienteService;
 public class ClienteServiceImplTest extends ContextWebApplicationJUnit {
 
     @Autowired
-    @Qualifier("fornecedorServiceImpl")
-    private ClienteService fornecedorService;
+    @Qualifier("clienteServiceImpl")
+    private ClienteService clienteService;
 
 
-    private ClienteRepositorio empresaRepositorio;
+    private ClienteRepositorio clienteRepositorio;
 
     @BeforeEach
     public void initMocks() {
-	empresaRepositorio = Mockito.mock(ClienteRepositorioImpl.class);
-	ReflectionTestUtils.setField(fornecedorService, "dao", empresaRepositorio);
+	clienteRepositorio = Mockito.mock(ClienteRepositorioImpl.class);
+	ReflectionTestUtils.setField(clienteService, "dao", clienteRepositorio);
     }
 
     @Test
     @DisplayName(value = "save user")
     void saveTest() {
 	
-	var empresa = construirEmpresa();
-	when(empresaRepositorio.save(empresa)).thenReturn(empresa);
-	var userDetail = fornecedorService.save(empresa);
+	var cliente = construirEmpresa();
+	when(clienteRepositorio.save(cliente)).thenReturn(cliente);
+	var userDetail = clienteService.save(cliente);
 	
 	assertNotNull(userDetail);
 	assertEquals(1L, userDetail.getId());
     }
 
     private Cliente construirEmpresa() {
-	var empresa = new Cliente();
-	empresa.setId(1L);
-	return empresa;
+	var cliente = new Cliente();
+	cliente.setId(1L);
+	return cliente;
     }
 }

@@ -41,6 +41,9 @@ import lombok.extern.slf4j.Slf4j;
 	"com.twa.cliente.entity",
 	"com.twa.cliente.repository.impl",
 	"com.twa.cliente.service.impl",
+	"com.twa.cliente.entity",
+	"com.twa.cliente.repository.impl",
+	"com.twa.cliente.service.impl",
 	"com.webservices.server"
 })
 

@@ -11,6 +11,9 @@
 	<include file="./versions/1.0.0.0/twa_cliente-insert.xml" relativeToChangelogFile="true" />
 	<include file="./versions/1.0.0.0/twa_cliente-insert-1.xml" relativeToChangelogFile="true" />
 	<include file="./versions/1.0.0.0/twa_cliente-insert-2.xml" relativeToChangelogFile="true" />
+	<include file="./versions/1.0.0.0/twa_contato.xml" relativeToChangelogFile="true" />
+	<include file="./versions/1.0.0.0/twa_contato-insert.xml" relativeToChangelogFile="true" />
+	<include file="./versions/1.0.0.0/twa_contato-insert-1.xml" relativeToChangelogFile="true" />
 	
 	
 </databaseChangeLog>

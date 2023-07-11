@@ -73,14 +73,6 @@
 		</rollback>
 	</changeSet>
 
-	<changeSet logicalFilePath="${logicalFile_1}" author="edson"
-		id="1634-27062026" dbms="postgresql" runInTransaction="true"
-		context="local, test, homolog, production" runOnChange="true">
-		<sql>
-			alter sequence public.cliente_id_seq restart with 203;
-		</sql>
-		<rollback>
-		</rollback>
-	</changeSet>
+
 
 </databaseChangeLog>
